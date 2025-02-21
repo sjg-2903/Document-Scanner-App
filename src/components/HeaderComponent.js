@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const HeaderComponent = () => {
   return (
     <View style={styles.header}>
-      <Text style={styles.headerText}>📄 DocScanner</Text>
+      <Text style={styles.headerText}>The Document Scanner</Text>
     </View>
   );
 };

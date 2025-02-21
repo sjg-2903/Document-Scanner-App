@@ -1,12 +1,20 @@
 import React from "react";
-import { Modal, View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  ScrollView,
+} from "react-native";
 import Clipboard from "@react-native-clipboard/clipboard";
 import Icon from "react-native-vector-icons/Ionicons";
 
 const ExtractedTextModal = ({ visible, text, onClose }) => {
   const copyToClipboard = () => {
     Clipboard.setString(text);
-    Alert.alert("Text Copied","Extracted text copied to clipboard!");
+    Alert.alert("Text Copied", "Extracted text copied to clipboard!");
   };
 
   return (
@@ -14,10 +22,15 @@ const ExtractedTextModal = ({ visible, text, onClose }) => {
       <View style={styles.overlay}>
         <View style={styles.modalContainer}>
           <Text style={styles.title}>Extracted Text</Text>
-          <View style={styles.textContainer}>
-            <Text style={styles.extractedText}>{text || "No text found"}</Text>
-          </View>
-          
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={true}
+          >
+            <View style={styles.textContainer}>
+              <Text style={styles.extractedText}>{text || "No text found"}</Text>
+            </View>
+          </ScrollView>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.copyButton} onPress={copyToClipboard}>
               <Icon name="copy-outline" size={20} color="#fff" />
@@ -48,12 +61,20 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems: "center",
     elevation: 5,
+    maxHeight: "80%",
   },
   title: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#333",
     marginBottom: 10,
+  },
+  scrollView: {
+    maxHeight: 300,
+    width: "100%",
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   textContainer: {
     backgroundColor: "#f8f9fa",
@@ -71,7 +92,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 10,
     width: "100%",
   },
   copyButton: {
